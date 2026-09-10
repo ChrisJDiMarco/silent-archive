@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#151918"><meta name="description" content="An archaeological language puzzle. Inspect an alien relic, decipher its symbols, and discover what it has been waiting to say."><title>The Silent Archive — First Contact</title><link rel="stylesheet" href="style.css"><script type="importmap">{"imports":{"three":"./assets/three.module.js"}}</script></head>
+<body>
+<header><a class="brand" href="./" aria-label="The Silent Archive home"><span class="brand-mark">⌑</span> THE SILENT ARCHIVE</a><div class="header-meta">KEPLER–186F <span>/</span> EXPEDITION 07</div><button id="help" class="quiet">Field guide <span>?</span></button></header>
+<main>
+<section class="artifact-stage" aria-label="Alien relic inspection">
+<div class="stage-title"><span class="eyebrow">FIRST CONTACT / LANGUAGE PUZZLE</span><h1>Someone left<br>the light on.</h1><p>An archive without a translator.<br>Learn its language. Find out why.</p></div>
+<div id="scene" tabindex="0" role="img" aria-label="3D alien archive. Drag to rotate. Arrow keys rotate; plus and minus zoom."><div id="scene-status">Preparing the archive…</div></div>
+<div class="artifact-caption"><div><span class="eyebrow">SPECIMEN 001</span><strong>The witness stone</strong></div><span class="coordinate">23° 14′ N<br>08° 52′ E</span></div>
+<div class="orbit-controls"><button id="rotate-left" aria-label="Rotate relic left">↶</button><span>DRAG TO ROTATE · SCROLL TO ZOOM</span><button id="rotate-right" aria-label="Rotate relic right">↷</button></div>
+<div class="site-select" role="group" aria-label="Inspect evidence sites"><button data-site="0" class="selected"><span>01</span> The vessel</button><button data-site="1"><span>02</span> The garden</button><button data-site="2"><span>03</span> The threshold</button></div>
+<div class="stage-foot"><span id="signal-state">ARCHIVE DORMANT</span><span>✦ &nbsp; NO SIGNAL IS EVER EMPTY</span></div>
+</section>
+<section class="workspace" aria-label="Decipher the alien language">
+<div class="chapter"><span id="chapter-label" class="eyebrow">CHAPTER 01 / 03</span><span id="progress-label">0 of 3 inscriptions decoded</span></div>
+<div class="chapter-track" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="work-heading"><h2 id="chapter-title">A word for water.</h2><p id="chapter-description">Nothing here is labeled for us. Start with what you can observe.</p></div>
+<div class="tabs" role="tablist" aria-label="Research tools"><button role="tab" aria-selected="true" id="evidence-tab" aria-controls="evidence-panel">01 &nbsp; Observe</button><button role="tab" aria-selected="false" id="lexicon-tab" aria-controls="lexicon-panel">02 &nbsp; Build your lexicon <span id="lexicon-count">0/6</span></button></div>
+<div id="evidence-panel" role="tabpanel" aria-labelledby="evidence-tab">
+<div class="observation-head"><span class="eyebrow" id="site-label">EVIDENCE 01 · THE VESSEL</span><span id="seen-count">1 / 3 examined</span></div>
+<div id="evidence-drawing" class="evidence-drawing" aria-hidden="true"></div>
+<p id="observation"></p><div class="evidence-inscriptions" id="inscriptions"></div><p class="field-note" id="field-note"></p>
+</div>
+<div id="lexicon-panel" role="tabpanel" aria-labelledby="lexicon-tab" hidden><p class="lexicon-intro">Assign a meaning to each mark. Your hypotheses stay editable until the archive confirms them.</p><div id="lexicon"></div></div>
+<section class="translation" aria-label="Translate the inscription"><div class="translation-heading"><span class="eyebrow">THE INSCRIPTION</span><span id="grammar-tag">READ LEFT → RIGHT</span></div><div id="sentence" class="sentence"></div><p id="translation-context"></p><div id="translation-slots"></div><div id="feedback" role="status" aria-live="polite">Observe the evidence, then choose a meaning beneath each symbol.</div><div class="action-row"><button id="hint" class="quiet">A small hint</button><button id="verify" class="primary">Test translation <span>↗</span></button></div></section>
+<div class="work-foot"><span id="session-note">Take your time. There is no countdown.</span><button id="reset" class="quiet">Start over</button></div>
+</section>
+</main>
+<dialog id="guide"><button class="close" aria-label="Close field guide">×</button><span class="eyebrow">EXPEDITION FIELD GUIDE</span><h2>Meaning leaves traces.</h2><p>You are the first linguist to reach this silent world. An ancient archive still has power, but its inscriptions have never been translated.</p><ol><li><strong>Observe.</strong> Inspect the vessel, garden, and threshold. Compare marks that recur in different contexts.</li><li><strong>Hypothesize.</strong> Assign meanings in your lexicon or beneath the inscription.</li><li><strong>Translate.</strong> Test each message. Use the evidence and grammar notes to revise your reading.</li></ol><p>Drag the relic or use the rotation buttons. All evidence is also available through the three named site buttons.</p><button class="primary close-guide">Return to the archive</button></dialog>
+<dialog id="ending"><span class="eyebrow">TRANSMISSION RECOVERED</span><div class="ending-glyph">⌑</div><h2>We kept the water<br>for you.</h2><p>You thought this was a warning.<br>It was an invitation.</p><p class="ending-story">The archive opens a path to reservoirs beneath the dry city. Whoever built it knew they might never meet the next arrivals. They left a language of light, water, and welcome.</p><div class="ending-stats">6 WORDS UNDERSTOOD <span>·</span> 3 MESSAGES RECOVERED</div><button class="primary close-ending">Keep exploring</button><button class="quiet replay">Play again</button></dialog>
+<script type="module" src="game.js"></script><script type="module" src="scene.js"></script>
+</body></html>

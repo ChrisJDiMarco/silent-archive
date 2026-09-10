@@ -1,0 +1,17 @@
+import {chromium} from 'playwright';
+import assert from 'node:assert/strict';
+const browser=await chromium.launch({headless:true});
+const page=await browser.newPage({viewport:{width:1440,height:1100},deviceScaleFactor:1});
+const errors=[];page.on('pageerror',e=>errors.push(e.message));
+await page.goto('http://127.0.0.1:4317/');await page.waitForSelector('#scene[data-ready="true"]');await page.screenshot({path:'qa/desktop.png',fullPage:true});
+await page.locator('#verify').click();assert.match(await page.locator('#feedback').textContent(),/Choose a meaning/);
+await page.locator('#slot-0').selectOption('stone');await page.locator('#slot-1').selectOption('death');await page.locator('#slot-2').selectOption('give');await page.locator('#verify').click();assert.match(await page.locator('#feedback').textContent(),/1 of 3/);
+await page.locator('[data-site="1"]').click();assert.match(await page.locator('#site-label').textContent(),/GARDEN/);
+await page.locator('#slot-0').selectOption('water');await page.locator('#slot-1').selectOption('life');await page.locator('#verify').click();assert.match(await page.locator('#feedback').textContent(),/Water gives life/);await page.locator('#verify').click();
+assert.match(await page.locator('#chapter-label').textContent(),/02/);await page.locator('#slot-3').selectOption('light');await page.locator('#verify').click();await page.locator('#verify').click();
+await page.locator('#slot-4').selectOption('we');await page.locator('#slot-5').selectOption('you');await page.locator('#verify').click();assert.equal(await page.locator('#ending').evaluate(el=>el.open),true);assert.match(await page.locator('#signal-state').textContent(),/AWAKE/);await page.screenshot({path:'qa/ending.png',fullPage:true});await page.locator('.close-ending').click();await page.locator('#rotate-right').click();await page.screenshot({path:'qa/rotated.png',fullPage:true});
+await page.locator('#help').click();assert.equal(await page.locator('#guide').evaluate(el=>el.open),true);await page.keyboard.press('Escape');
+const mobile=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true,deviceScaleFactor:1,reducedMotion:'reduce'});await mobile.goto('http://127.0.0.1:4317/');await mobile.waitForSelector('#scene[data-ready="true"]');assert.equal(await mobile.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);await mobile.screenshot({path:'qa/mobile.png',fullPage:true});
+await mobile.locator('[data-site="2"]').tap();assert.match(await mobile.locator('#observation').textContent(),/builders/);await mobile.locator('#lexicon-tab').tap();await mobile.locator('#lex-0').selectOption('water');await mobile.locator('#evidence-tab').tap();assert.equal(await mobile.locator('#slot-0').inputValue(),'water');
+const fallback=await browser.newPage();await fallback.addInitScript(()=>{HTMLCanvasElement.prototype.getContext=new Proxy(HTMLCanvasElement.prototype.getContext,{apply(target,ctx,args){if(String(args[0]).startsWith('webgl'))return null;return Reflect.apply(target,ctx,args);}});});await fallback.goto('http://127.0.0.1:4317/');await fallback.waitForSelector('#scene[data-ready="fallback"]');await fallback.locator('[data-site="1"]').click();assert.match(await fallback.locator('#observation').textContent(),/Two matching/);
+assert.deepEqual(errors,[]);await browser.close();console.log('PASS: WebGL render, incomplete/wrong answers, complete three-chapter playthrough, ending, rotation, help, mobile layout/touch, reduced motion and WebGL fallback.');
